@@ -1,0 +1,118 @@
+[
+  {
+    "id": 29066,
+    "name": "The Garrett Building",
+    "description": "This 13-story building, completed in 1913, was designed by Baltimore architects J. B. Noel Wyatt and William G. Nolting. Reflecting a mixture of styles, this transitional building combines the Chicago windows, flat wall panes and flat skyline characteristic of the Commercial style with Renaissance Revival details such as loggias, pedimented windows and rustication. From 1913 to 1974, the building housed Robert Garrett and Sons, one of the oldest and most influential banking houses in the country.\r\nRobert Garrett (1783-1857), an Irish-born merchant-turned-financier, came to Baltimore as a young man in 1801 and clerked for several years in a produce and commission house. In 1819, he opened his own firm on Howard Street, dispatching such items as flint, chocolate and chalk to village stores out west, and receiving in return ginseng, snakeroot and whiskey. The business prospered and by the mid-century, Robert Garrett and Sons were leaders in trade, shipping, railroads and finance. They and their descendants rose to an extraordinary level of influence in the economic, social and civic affairs of the city, the state and the nation.\r\nIn 1981, the partners of the law firm of Gordon, Feinblatt, Rothman, Hoffberger and Hollander purchased the building and began one of the single largest restoration projects in the history of downtown Baltimore. The project was completed in January, 1984.\r\nMarker is at the intersection of East Redwood Street and South Street, on the left when traveling west on East Redwood Street.\r\nCourtesy hmdb.org",
+    "photo": {
+      "origin": "https://s3.amazonaws.com/nextexithistory-bucket/uploads/historical_photo/pictures/255/322945-709x1024.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Expires=3600&X-Amz-Credential=AKIAJMYMAME7D3H7ZADA%2F20180414%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Date=20180414T185343Z&X-Amz-Signature=958daed890b5aaa774f805e3b23c8eb5349d2f624d79c2367a298e18ab6c414f",
+      "small": "http://nextexithistory-bucket.s3-website-us-east-1.amazonaws.com/150x150/uploads/historical_photo/pictures/255/322945-709x1024.jpg"
+    },
+    "order": 1,
+    "category": {
+      "name": "Historical Markers",
+      "image": {
+        "origin": "https://s3.amazonaws.com/nextexithistory-bucket/uploads/historical_photo/category_img/Historical_Marker_AFyqGpb.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Expires=3600&X-Amz-Credential=AKIAJMYMAME7D3H7ZADA%2F20180414%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Date=20180414T185343Z&X-Amz-Signature=44adb69cd45cf720894c42317e63e4b081dab269c5137b2578b7072e63bb1e18",
+        "small": "http://nextexithistory-bucket.s3-website-us-east-1.amazonaws.com/150x150/uploads/historical_photo/category_img/Historical_Marker_AFyqGpb.png"
+      },
+      "description": "test desc"
+    },
+    "location": {
+      "street": null,
+      "city": "Baltimore",
+      "county": null,
+      "state": "Maryland",
+      "state_abbreviation": "MD",
+      "zip_code": null,
+      "country": "USA",
+      "latitude": 39.2889,
+      "longitude": -76.6111
+    }
+  },
+  {
+    "id": 14374,
+    "name": "Top of the World Observation Level World Trade Center",
+    "description": "Baltimore's World Trade Center, completed in 1977, was a cornerstone of the Inner Harbor's acclaimed redevelopment. Designed by the internationally renowned architectural firm of L.M. Pei  Partners, it is the tallest pentagonal building in the world and a beloved city landmark.\r\nFor insight and information into Baltimore's rich heritage, visit the Top of the World Observation Level on the 27th Floor of the World Trade Center and discover the city's history, culture and people as seen from unobstructed panoramic windows. From this vantage point visitors can:\r\n Trace maritime trade routes to understand how Baltimore evolved from the sleepy seaport to a bustling center of commerce and culture.\r\n Glimpse the white marble steps of Baltimore's famed row homes and spires of the churches that anchored communities settled by African, Asian and European Americans over hundreds of years.\r\n Observe Baltimore's role as an international gateway and see ships unload raw materials, consumer goods and cruise ship travelers.\r\n Learn how city leaders transformed a former industrial harbor into a world-class tourist attraction, business hub and residential center.\r\n Experience the wonder of Baltimore from above and prepare to explore more of Baltimore's historic neighborhoods, landmarks and cultural attractions.\r\nMarker is on East Pratt Street, on the right when traveling east.\r\nCourtesy hmdb.org",
+    "photo": {
+      "origin": "https://s3.amazonaws.com/nextexithistory-bucket/uploads/historical_photo/pictures/807/259707-768x1024.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Expires=3600&X-Amz-Credential=AKIAJMYMAME7D3H7ZADA%2F20180414%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Date=20180414T185343Z&X-Amz-Signature=a6d7335df0bcfc21594a68a8614fea8447b3111e9e960e881934176442e8f18c",
+      "small": "http://nextexithistory-bucket.s3-website-us-east-1.amazonaws.com/150x150/uploads/historical_photo/pictures/807/259707-768x1024.jpg"
+    },
+    "order": 2,
+    "category": {
+      "name": "Historical Markers",
+      "image": {
+        "origin": "https://s3.amazonaws.com/nextexithistory-bucket/uploads/historical_photo/category_img/Historical_Marker_AFyqGpb.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Expires=3600&X-Amz-Credential=AKIAJMYMAME7D3H7ZADA%2F20180414%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Date=20180414T185343Z&X-Amz-Signature=44adb69cd45cf720894c42317e63e4b081dab269c5137b2578b7072e63bb1e18",
+        "small": "http://nextexithistory-bucket.s3-website-us-east-1.amazonaws.com/150x150/uploads/historical_photo/category_img/Historical_Marker_AFyqGpb.png"
+      },
+      "description": "test desc"
+    },
+    "location": {
+      "street": null,
+      "city": "Baltimore",
+      "county": null,
+      "state": "Maryland",
+      "state_abbreviation": "MD",
+      "zip_code": null,
+      "country": "USA",
+      "latitude": 39.2859,
+      "longitude": -76.6099
+    }
+  },
+  {
+    "id": 26490,
+    "name": "The Equitable Building",
+    "description": "This building, designed in 1889 in the Richardson-Sullivan tradition by Charles L. Carson and Joseph Evans Sperry, was considered the first skyscraper to be erected in Baltimore. It is the oldest of the existing structures on Monument Square and once featured Turkish baths in the basement and a garden on the roof. Following the \"cage form\" of construction, a network of cast-iron columns and steel girders supported the floor-loads and interior of the building, while the exterior walls were entirely self-supporting.\r\nDuring the Great Fire of 1904, must of the interior was damaged. The exterior walls, however, emerged relatively unscathed, and the building was immediately reconditioned by the owners.\r\nFormerly on this site, from 1825 to 1889, stood Barnum's City Hote, internationally renowned for elegant accomodations, gracious service and excellent cuisine - including the famous diamondback terrapins which were exercised daily in the courtyard before being condemned to dinner.\r\nMarker is at the intersection of North Calvert Street (Maryland Route 2) and East Fayette Street, on the left when traveling north on North Calvert Street.\r\nCourtesy hmdb.org",
+    "photo": {
+      "origin": "https://s3.amazonaws.com/nextexithistory-bucket/uploads/historical_photo/pictures/975/311605-680x1024.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Expires=3600&X-Amz-Credential=AKIAJMYMAME7D3H7ZADA%2F20180414%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Date=20180414T185343Z&X-Amz-Signature=db12c69a584b226a3cf12ce4e0c8001a230f96f90a0c4500fa20972f6ce4e371",
+      "small": "http://nextexithistory-bucket.s3-website-us-east-1.amazonaws.com/150x150/uploads/historical_photo/pictures/975/311605-680x1024.jpg"
+    },
+    "order": 3,
+    "category": {
+      "name": "Historical Markers",
+      "image": {
+        "origin": "https://s3.amazonaws.com/nextexithistory-bucket/uploads/historical_photo/category_img/Historical_Marker_AFyqGpb.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Expires=3600&X-Amz-Credential=AKIAJMYMAME7D3H7ZADA%2F20180414%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Date=20180414T185343Z&X-Amz-Signature=44adb69cd45cf720894c42317e63e4b081dab269c5137b2578b7072e63bb1e18",
+        "small": "http://nextexithistory-bucket.s3-website-us-east-1.amazonaws.com/150x150/uploads/historical_photo/category_img/Historical_Marker_AFyqGpb.png"
+      },
+      "description": "test desc"
+    },
+    "location": {
+      "street": null,
+      "city": "Baltimore",
+      "county": null,
+      "state": "Maryland",
+      "state_abbreviation": "MD",
+      "zip_code": null,
+      "country": "USA",
+      "latitude": 39.2904,
+      "longitude": -76.6124
+    }
+  },
+  {
+    "id": 29061,
+    "name": "The Lovely Lane Meeting House",
+    "description": "Upon this site stood\r\nfrom 1774 to 1786\r\nThe Lovely Lane Meeting House\r\nin which was organized\r\nDecember 1784\r\nThe Methodist Episcopal Church\r\nin The United States of\r\nAmerica\r\nMarker is on East Redwood Street, on the right when traveling west.\r\nCourtesy hmdb.org",
+    "photo": {
+      "origin": "https://s3.amazonaws.com/nextexithistory-bucket/uploads/historical_photo/pictures/236/322930-749x1024.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Expires=3600&X-Amz-Credential=AKIAJMYMAME7D3H7ZADA%2F20180414%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Date=20180414T185343Z&X-Amz-Signature=32b6e424125a0839714b53a06dc7c506e2f742d8dbf865c62959901bc1aad654",
+      "small": "http://nextexithistory-bucket.s3-website-us-east-1.amazonaws.com/150x150/uploads/historical_photo/pictures/236/322930-749x1024.jpg"
+    },
+    "order": 4,
+    "category": {
+      "name": "Historical Markers",
+      "image": {
+        "origin": "https://s3.amazonaws.com/nextexithistory-bucket/uploads/historical_photo/category_img/Historical_Marker_AFyqGpb.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Expires=3600&X-Amz-Credential=AKIAJMYMAME7D3H7ZADA%2F20180414%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Date=20180414T185343Z&X-Amz-Signature=44adb69cd45cf720894c42317e63e4b081dab269c5137b2578b7072e63bb1e18",
+        "small": "http://nextexithistory-bucket.s3-website-us-east-1.amazonaws.com/150x150/uploads/historical_photo/category_img/Historical_Marker_AFyqGpb.png"
+      },
+      "description": "test desc"
+    },
+    "location": {
+      "street": null,
+      "city": "Baltimore",
+      "county": null,
+      "state": "Maryland",
+      "state_abbreviation": "MD",
+      "zip_code": null,
+      "country": "USA",
+      "latitude": 39.289,
+      "longitude": -76.6118
+    }
+  }
+]

@@ -6,6 +6,7 @@ import Box from './Box'
 import {withTheme} from '../theme'
 
 class Page extends React.Component {
+
     render() {
 
         const {
@@ -13,6 +14,8 @@ class Page extends React.Component {
             style,
             noBackground,
             onScroll,
+            onScrollEnd,
+            scrollEnabled,
             theme,
         } = this.props
 
@@ -21,7 +24,7 @@ class Page extends React.Component {
         if (noBackground) {
             _styles.push(styles.noBackground)
         } else {
-            _styles.push({backgroundColor: theme.palette.pageBackgroundColor})
+            _styles.push({backgroundColor: theme.page.backgroundColor})
         }
 
         _styles.push(styles.root)
@@ -30,7 +33,9 @@ class Page extends React.Component {
 
         return (
             <Box fitAbsolute style={_styles}>
-                <ScrollView onScroll={onScroll}>
+                <ScrollView onScroll={onScroll}
+                            scrollEnabled={scrollEnabled}
+                            onScrollEndDrag={onScrollEnd}>
                     <View>
                         {children}
                     </View>
@@ -40,9 +45,18 @@ class Page extends React.Component {
     }
 }
 
+Page.defaultProps = {
+    noBackground: false,
+    onScroll: () => {},
+    onScrollEnd: () => {},
+    scrollEnabled: true,
+}
+
 Page.propTypes = {
     noBackground: PropTypes.bool,
     onScroll: PropTypes.func,
+    onScrollEnd: PropTypes.func,
+    scrollEnabled: PropTypes.bool,
 
     children: PropTypes.any,
     style: PropTypes.any,

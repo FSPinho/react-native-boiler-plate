@@ -3,6 +3,11 @@ import {StyleSheet, View} from 'react-native';
 import PropTypes from 'prop-types';
 
 export default class Box extends React.Component {
+
+    setNativeProps = (nativeProps) => {
+        this.refs.root.setNativeProps(nativeProps);
+    }
+
     render() {
 
         const {
@@ -28,6 +33,8 @@ export default class Box extends React.Component {
 
             wrap,
 
+            catchSwipeEvents,
+
             style
 
         } = this.props
@@ -52,7 +59,7 @@ export default class Box extends React.Component {
         if (styles) _styles.push(style)
 
         return (
-            <View style={_styles}>
+            <View style={_styles} ref="root">
                 {children}
             </View>
         );
@@ -80,6 +87,8 @@ Box.propTypes = {
     fitFixed: PropTypes.bool,
 
     wrap: PropTypes.bool,
+
+    catchSwipeEvents: PropTypes.bool,
 
     children: PropTypes.any,
     style: PropTypes.any,

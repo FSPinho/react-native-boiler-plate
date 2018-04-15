@@ -7,7 +7,7 @@ import {withTheme} from './theme'
 class App extends React.Component {
     render() {
         return (
-            <CustomTabNavigator tabs={[
+            <CustomTabNavigator position="bottom" tabs={[
                 {name: 'Explore', icon: 'directions-fork', component: Explore},
                 {name: 'Favorites', icon: 'heart', component: Explore},
             ]}/>

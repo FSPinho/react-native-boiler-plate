@@ -3,8 +3,6 @@ import Color from 'react-native-material-color'
 const palette = {
     primary: Color.DeepPruple,
     accent: Color.PINK['A200'],
-
-    pageBackgroundColor: Color.INDIGO['50']
 }
 
 const theme = {
@@ -27,6 +25,16 @@ const theme = {
         activeColor: palette.primary,
         rippleColor: palette.primary,
         inactiveColor: Color.BLUEGREY['300'],
+    },
+
+    page: {
+        backgroundColor: Color.INDIGO['50']
+    },
+
+    list: {
+        backgroundColor: Color.INDIGO['50'],
+        padding: 16,
+        borderRadius: 4,
     }
 }
 

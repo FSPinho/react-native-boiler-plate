@@ -7,9 +7,23 @@ import PropTypes from 'prop-types'
 import withTheme from "../theme/withTheme";
 
 class CustomTabNavigator extends React.Component {
-    render() {
-        const {theme, tabs} = this.props
+
+    setNativeProps = (nativeProps) => {
+        this.refs.navigation.setNativeProps(nativeProps);
+    }
+
+    constructor(props) {
+        super(props)
+
+        const {theme, tabs, disableAnimations, position, topOffset} = this.props
         const navTheme = theme.bottomNavigation
+        const options = {}
+
+        if(disableAnimations) {
+            options.swipeEnabled = false
+            options.animationEnabled = false
+        }
+
         const tabOptions = {
             labelColor: navTheme.inactiveColor,
             activeLabelColor: navTheme.activeColor,
@@ -25,24 +39,42 @@ class CustomTabNavigator extends React.Component {
             activeIcon: <Icon color={navTheme.activeColor} size={24} name={t.icon}/>
         })
 
-
         const Navigator = TabNavigator(
             _screens,
             {
                 tabBarComponent: NavigationComponent,
-                tabBarPosition: 'bottom',
+                tabBarPosition: position,
                 tabBarOptions: {
                     bottomNavigationOptions: {
+                        style: {
+                            top: topOffset,
+                            zIndex: 10
+                        },
                         backgroundColor: navTheme.backgroundColor,
                         rippleColor: navTheme.rippleColor,
-                        tabs: _tabs
+                        tabs: _tabs,
                     }
-                }
+                },
+                ...options
             }
         )
 
-        return <Navigator/>
+        this.state = {
+            navigator: <Navigator/>,
+        }
     }
+
+    render() {
+        const {navigator} = this.state
+        return navigator
+    }
+}
+
+CustomTabNavigator.defaultProps = {
+    tabs: [],
+    position: 'bottom',
+    disableAnimations: false,
+    topOffset: 0
 }
 
 CustomTabNavigator.propTypes = {
@@ -50,7 +82,11 @@ CustomTabNavigator.propTypes = {
         name: PropTypes.string.isRequired,
         icon: PropTypes.string,
         component: PropTypes.any.isRequired,
-    })).isRequired
+    })).isRequired,
+
+    position: PropTypes.oneOf(['top', 'bottom']),
+    topOffset: PropTypes.number,
+    disableAnimations: PropTypes.bool,
 }
 
 export default withTheme(CustomTabNavigator)

@@ -35,6 +35,27 @@ const theme = {
         backgroundColor: Color.INDIGO['50'],
         padding: 16,
         borderRadius: 4,
+    },
+
+    // Pages
+    explore: {
+        content: {
+            backgroundColor: Color.INDIGO['50'],
+        },
+
+        info: {
+            backgroundColor: Color.INDIGO['50'],
+            headerBackgroundColor: Color.White,
+
+            borderRadius: 4,
+
+            borderBottomColor: `rgba(0, 0, 0, .12)`,
+            borderBottomWidth: 1,
+            borderLeftColor: `rgba(0, 0, 0, .06)`,
+            borderLeftWidth: 1,
+            borderRightColor: `rgba(0, 0, 0, .06)`,
+            borderRightWidth: 1,
+        }
     }
 }
 

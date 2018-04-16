@@ -17,6 +17,7 @@ class Page extends React.Component {
             onScrollEnd,
             scrollEnabled,
             theme,
+            ...anotherProps
         } = this.props
 
         const _styles = []
@@ -30,13 +31,13 @@ class Page extends React.Component {
         _styles.push(styles.root)
         _styles.push(style)
 
-
         return (
-            <Box fitAbsolute style={_styles}>
+            <Box fitAbsolute style={_styles} pointerEvents="none">
                 <ScrollView onScroll={onScroll}
                             scrollEnabled={scrollEnabled}
-                            onScrollEndDrag={onScrollEnd}>
-                    <View>
+                            onScrollEndDrag={onScrollEnd}
+                            pointerEvents="none">
+                    <View pointerEvents="none">
                         {children}
                     </View>
                 </ScrollView>

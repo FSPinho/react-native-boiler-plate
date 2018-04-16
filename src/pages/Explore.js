@@ -1,55 +1,13 @@
 import React from 'react'
-import {Animated, Dimensions, StyleSheet, Text} from 'react-native'
-import BottomNavigation, {Tab} from 'react-native-material-bottom-navigation'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Animated, Dimensions, StyleSheet, Text, View, ScrollView } from 'react-native'
+import MapView from 'react-native-maps'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 
-import {Box, ListOfSites, Page, Paper} from '../components'
-import {withTheme} from '../theme'
-
-
-const DEF_INFO_CARD_SCALE_GAP = 16
-const DEF_INFO_CARD_SCALE_GAP_EXPANDED = 0
-const DEF_INFO_CARD_ANIMATION_DURATION = 200
+import { TouchableView, Box } from '../components'
+import { withTheme } from '../theme'
 
 
-const Tabs = withTheme(({theme, activeTab, onTabChange}) => {
-
-    const navTheme = theme.bottomNavigation
-
-    const tabOptions = {
-        labelColor: navTheme.inactiveColor,
-        activeLabelColor: navTheme.activeColor,
-    }
-
-    return (
-        <BottomNavigation
-            backgroundColor={navTheme.backgroundColor}
-            rippleColor={navTheme.rippleColor}
-            activeTab={activeTab}
-            style={{
-                height: 56,
-                elevation: 8,
-                position: 'absolute',
-                left: 0,
-                bottom: 0,
-                right: 0
-            }}
-            onTabChange={onTabChange}>
-            <Tab
-                {...tabOptions}
-                label="Sites"
-                icon={<Icon color={navTheme.inactiveColor} size={24} name="map-marker"/>}
-                activeIcon={<Icon color={navTheme.activeColor} size={24} name="map-marker"/>}
-            />
-            <Tab
-                {...tabOptions}
-                label="Tours"
-                icon={<Icon color={navTheme.inactiveColor} size={24} name="routes"/>}
-                activeIcon={<Icon color={navTheme.activeColor} size={24} name="routes"/>}
-            />
-        </BottomNavigation>
-    )
-})
+const DEF_INFO_PREV_HEIGHT = 56 * 2
 
 
 class Explore extends React.Component {
@@ -58,150 +16,200 @@ class Explore extends React.Component {
         super(props)
 
         this.state = {
-            expanded: false,
-            expandedScale: new Animated.Value(this.getInfoCardScaleGap(DEF_INFO_CARD_SCALE_GAP)),
-            headerFixed: false,
-            activeTab: 0,
-        }
 
-        Dimensions.addEventListener('change', () => {
-            this.setState({
-                expandedScale: new Animated.Value(this.getInfoCardScaleGap(DEF_INFO_CARD_SCALE_GAP))
-            })
-        })
+        }
     }
 
-
-    /**
-     * Returns the correct scale to get the pixel gap given as param
-     * */
-    getInfoCardScaleGap = () => {
-        const gap = (this.state && this.state.expanded) ? DEF_INFO_CARD_SCALE_GAP_EXPANDED : DEF_INFO_CARD_SCALE_GAP
-        const scaleGap = 1 - 2 * gap / Dimensions.get('window').width
+    getInfoCardScaleGap = (gap) => {
+        const scaleGap = 2 * gap / Dimensions.get('window').width
 
         return scaleGap
     }
 
-    doChangeExpand = expanded => {
-        if (expanded != this.state.expanded) {
-            this.setState({
-                ...this.state,
-                expanded,
-            }, () => {
-                Animated.timing(
-                    this.state.expandedScale, {
-                        toValue: this.getInfoCardScaleGap(),
-                        duration: DEF_INFO_CARD_ANIMATION_DURATION
-                    }).start();
-            })
-        }
-    }
-
-    doChangeHeaderFixed = headerFixed => {
-        if (headerFixed != this.state.headerFixed) {
-            this.setState({
-                ...this.state,
-                headerFixed
-            })
-        }
-    }
-
-    handleOnScroll = e => {
-        const scrollTop = e.nativeEvent.contentOffset.y
-        const {height} = Dimensions.get('window')
-
-        if (scrollTop >= height - 192)
-            this.doChangeHeaderFixed(true)
-        else
-            this.doChangeHeaderFixed(false)
-
-        if (scrollTop >= height / 4)
-            this.doChangeExpand(true)
-        else
-            this.doChangeExpand(false)
-
-    }
-
-    handleTabChanged = activeTab =>
-        this.setState({
-            ...this.state,
-            activeTab
+    componentDidMount = () => {
+        this.refs.info.setNativeProps({
+            top: Dimensions.get('window').height - DEF_INFO_PREV_HEIGHT - 56 - getStatusBarHeight(),
+            transform: [{scaleX: 1 - this.getInfoCardScaleGap(16)}]
         })
+    }
+
+    setInfoTopPosition = top => {
+        const info = this.refs.info
+        const infoHeader = this.refs.infoHeader
+        const contentHeight = Dimensions.get('window').height - 56 - getStatusBarHeight()
+        const scaleStep = Math.min(1.0, Math.max(0, top / (contentHeight - DEF_INFO_PREV_HEIGHT)))
+        const scaleGap = 1 - this.getInfoCardScaleGap(16) * scaleStep
+
+        info.setNativeProps({
+            top,
+            transform: [{scaleX: scaleGap}]
+        })
+
+        infoHeader.setNativeProps({
+            top: Math.max(0, -top),
+            elevation: 2 * parseInt(scaleGap)
+        })
+    }
+
+    moveInfoToTop = () => {
+        const root = this.refs.root
+        const info = this.refs.info
+
+        info.measure(root, (_, y) => {
+            
+            const defTop = Dimensions.get('window').height - DEF_INFO_PREV_HEIGHT - 56 - getStatusBarHeight()
+            const toTop = y >= defTop - 5
+            const toBottom = y <= 5
+            if(toTop || toBottom) {
+
+                const v = new Animated.Value(y)
+
+                v.addListener(({value}) => {
+                    this.setInfoTopPosition(value)
+                })
+
+                this.currentInfoAnimation = Animated.timing(v, {
+                    toValue: toBottom ? defTop : 0,
+                    duration: 200,
+                })
+
+                this.currentInfoAnimation.start();
+            }
+        })
+    }
+
+    handleInfoTouch = ({yOffset}) => {
+        const root = this.refs.root
+        const info = this.refs.info
+
+        if(this.currentInfoAnimation) {
+            console.log("Stoping animation")
+            this.currentInfoAnimation.stop()
+        }
+
+        if(root && info) {
+            info.measure(root, (_, y, __, h) => {
+                const contentHeight = Dimensions.get('window').height - 56 - getStatusBarHeight()
+                const infoInitialTop = contentHeight - DEF_INFO_PREV_HEIGHT
+                const top = Math.max(Math.min(infoInitialTop, y + yOffset), -(h - contentHeight))
+
+                this.setInfoTopPosition(top)
+            })
+        }
+    }
+
+    handleInfoHeaderTouch = () => {
+        console.log("Header touch")
+        this.moveInfoToTop()
+    }
 
     render() {
 
-        const dynamicStyles = getDynamicStyles(this.props.theme, this.state)
+        const { theme } = this.props
+        const dynamicStyles = getDynamicStyles(theme, this.sate)
 
         return (
-            <Box fitAbsolute column>
+            <View ref="root" style={styles.root}>
 
-                <Box fitAbsolute style={[styles.map, dynamicStyles.map]} centralize>
-                    <Text>Map View</Text>
-                </Box>
-
-                <Paper ref="mapInfoHeaderTop" style={[styles.mapInfoHeaderTop, dynamicStyles.mapInfoHeaderTop]}>
-                    <Box style={[styles.mapInfoHeader, dynamicStyles.mapInfoHeader]}
-                         centralize>
-
-                        <Tabs activeTab={this.state.activeTab}
-                              onTabChange={this.handleTabChanged}
-                              theme={this.props.theme}/>
-
-                    </Box>
-                </Paper>
-
-                <Page noBackground onScroll={this.handleOnScroll}>
-                    <Animated.View style={dynamicStyles.mapInfoWrapper}>
-                        <Paper column style={[styles.mapInfo, dynamicStyles.mapInfo]}>
-                            <Box style={[styles.mapInfoHeader, dynamicStyles.mapInfoHeader]}
-                                 centralize>
-
-                                <Tabs activeTab={this.state.activeTab}
-                                      onTabChange={this.handleTabChanged}
-                                      theme={this.props.theme}/>
-
-                            </Box>
-                            <ListOfSites padding/>
-                        </Paper>
-                    </Animated.View>
-                </Page>
-            </Box>
+                <TouchableView style={[styles.content, dynamicStyles.content]} tag="content">
+                    <MapView style={styles.map}/>
+                </TouchableView>
+                <TouchableView onTouch={this.handleInfoTouch} style={[styles.info, dynamicStyles.info]} ref="info" tag="info">
+                    <TouchableView onOneTouch={this.handleInfoHeaderTouch} style={[styles.infoHeader, dynamicStyles.infoHeader]} tag="headerInfo" ref="infoHeader">
+                        <Box centralize fitAbsolute>
+                            <Text>Info Header</Text>
+                        </Box> 
+                    </TouchableView>
+                    
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    <Text>Info Content</Text>
+                    
+                </TouchableView>
+            </View>
         )
+
     }
 }
 
 const styles = StyleSheet.create({
-    map: {},
-    mapInfo: {
-        marginBottom: 0,
+    root: {
+        ...StyleSheet.absoluteFillObject,
     },
-    mapInfoHeader: {
-        height: 54,
+    content: {
+        ...StyleSheet.absoluteFillObject,
     },
-    mapInfoHeaderTop: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        zIndex: 10,
-    }
+    map: {
+        ...StyleSheet.absoluteFillObject,
+    },
+    info: {
+        ...StyleSheet.absoluteFillObject,
+        bottom: 'auto',
+        padding: 16,
+        paddingTop: 56 + 16,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+    },
 })
 
 const getDynamicStyles = (theme, state) => ({
-    map: {
-        backgroundColor: theme.page.backgroundColor
+    content: {
+        backgroundColor: theme.explore.content.backgroundColor,
     },
-    mapInfoWrapper: {
-        transform: [{scaleX: state.expandedScale}]
+    info: {
+        borderTopLeftRadius: theme.explore.info.borderRadius,
+        borderTopRightRadius: theme.explore.info.borderRadius,
+        overflow: 'hidden',
+
+        backgroundColor: theme.explore.info.backgroundColor,
+        borderRadius: theme.explore.info.borderRadius,
+        backgroundColor: theme.explore.info.backgroundColor,
+        borderLeftColor: theme.explore.info.borderLeftColor,
+        borderLeftWidth: theme.explore.info.borderLeftWidth,
+        borderRightColor: theme.explore.info.borderRightColor,
+        borderRightWidth: theme.explore.info.borderRightWidth,
     },
-    mapInfo: {
-        marginTop: Dimensions.get('window').height - 192,
+    infoHeader: {
+        ...StyleSheet.absoluteFillObject,
+        bottom: 'auto',
+        height: 56,
+        backgroundColor: theme.explore.info.headerBackgroundColor,
+        zIndex: 10,
+
+        borderBottomColor: theme.explore.info.borderBottomColor,
+        borderBottomWidth: theme.explore.info.borderBottomWidth,
     },
-    mapInfoHeader: {
-        backgroundColor: theme.bottomNavigation.backgroundColor
-    },
-    mapInfoHeaderTop: {
-        opacity: state.headerFixed ? 1 : 0
-    }
 })
 
 export default withTheme(Explore)

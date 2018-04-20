@@ -1,10 +1,11 @@
 import React from 'react'
-import { Animated, Dimensions, StyleSheet, Text, View, ScrollView } from 'react-native'
+import {Animated, Dimensions, StyleSheet, Text, View, ScrollView} from 'react-native'
 import MapView from 'react-native-maps'
-import { getStatusBarHeight } from 'react-native-status-bar-height'
+import {getStatusBarHeight} from 'react-native-status-bar-height'
 
-import { TouchableView, Box } from '../components'
-import { withTheme } from '../theme'
+import {TouchableView, Box} from '../components'
+import {withTheme} from '../theme'
+import ListOfSites from "../components/ListOfSites";
 
 
 const DEF_INFO_PREV_HEIGHT = 56 * 2
@@ -15,9 +16,7 @@ class Explore extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-
-        }
+        this.state = {}
     }
 
     getInfoCardScaleGap = (gap) => {
@@ -56,11 +55,11 @@ class Explore extends React.Component {
         const info = this.refs.info
 
         info.measure(root, (_, y) => {
-            
+
             const defTop = Dimensions.get('window').height - DEF_INFO_PREV_HEIGHT - 56 - getStatusBarHeight()
             const toTop = y >= defTop - 5
             const toBottom = y <= 5
-            if(toTop || toBottom) {
+            if (toTop || toBottom) {
 
                 const v = new Animated.Value(y)
 
@@ -79,23 +78,63 @@ class Explore extends React.Component {
     }
 
     handleInfoTouch = ({yOffset}) => {
-        const root = this.refs.root
-        const info = this.refs.info
 
-        if(this.currentInfoAnimation) {
-            console.log("Stoping animation")
+        if (this.currentInfoAnimation) {
             this.currentInfoAnimation.stop()
         }
 
-        if(root && info) {
-            info.measure(root, (_, y, __, h) => {
+        if(this.__STORED_INFO_TOP) {
+            this.__STORED_INFO_TOP = Math.max(Math.min(this.__STORED_INFO_INITIAL_TOP, this.__STORED_INFO_TOP + yOffset), -(this.__STORED_INFO_HEIGHT - this.__STORED_CONTENT_HEIGHT))
+
+            this.setInfoTopPosition(this.__STORED_INFO_TOP)
+        } else {
+            const root = this.refs.root
+            const info = this.refs.info
+
+            if (root && info) {
+                info.measure(root, (_, y, __, h) => {
+
+                    const contentHeight = Dimensions.get('window').height - 56 - getStatusBarHeight()
+                    const infoInitialTop = contentHeight - DEF_INFO_PREV_HEIGHT
+                    const top = Math.max(Math.min(infoInitialTop, y + yOffset), -(h - contentHeight))
+
+                    this.__STORED_INFO_TOP = y
+                    this.__STORED_INFO_HEIGHT = h
+                    this.__STORED_CONTENT_HEIGHT = contentHeight
+                    this.__STORED_INFO_INITIAL_TOP = infoInitialTop
+
+                    this.setInfoTopPosition(top)
+                })
+            }
+        }
+    }
+
+    handleInfoTouchEnd = ({speedY}) => {
+        this.__STORED_INFO_TOP = null
+        this.__STORED_INFO_HEIGHT = null
+        this.__STORED_CONTENT_HEIGHT = null
+        this.__STORED_INFO_INITIAL_TOP = null
+
+        const root = this.refs.root
+        const info = this.refs.info
+
+        info.measure(root, (_, y, __, h) => {
+            let top = y
+            const moveTop = value => {
                 const contentHeight = Dimensions.get('window').height - 56 - getStatusBarHeight()
                 const infoInitialTop = contentHeight - DEF_INFO_PREV_HEIGHT
-                const top = Math.max(Math.min(infoInitialTop, y + yOffset), -(h - contentHeight))
+                top = Math.max(Math.min(infoInitialTop, top + value), -(h - contentHeight))
 
                 this.setInfoTopPosition(top)
-            })
-        }
+            }
+
+            const interval = setInterval(() => {
+                moveTop(speedY * 0.04)
+                speedY /= 1.1
+            }, 1000 / 120)
+
+            this.currentInfoAnimation = {stop: () => clearInterval(interval)}
+        })
     }
 
     handleInfoHeaderTouch = () => {
@@ -105,57 +144,35 @@ class Explore extends React.Component {
 
     render() {
 
-        const { theme } = this.props
+        const {theme} = this.props
         const dynamicStyles = getDynamicStyles(theme, this.sate)
 
         return (
             <View ref="root" style={styles.root}>
 
                 <TouchableView style={[styles.content, dynamicStyles.content]} tag="content">
+
                     <MapView style={styles.map}/>
+
                 </TouchableView>
-                <TouchableView onTouch={this.handleInfoTouch} style={[styles.info, dynamicStyles.info]} ref="info" tag="info">
-                    <TouchableView onOneTouch={this.handleInfoHeaderTouch} style={[styles.infoHeader, dynamicStyles.infoHeader]} tag="headerInfo" ref="infoHeader">
+
+                <TouchableView onTouch={this.handleInfoTouch}
+                               onTouchEnd={this.handleInfoTouchEnd}
+                               style={[styles.info, dynamicStyles.info]}
+                               ref="info" tag="info">
+
+                    <TouchableView onOneTouch={this.handleInfoHeaderTouch}
+                                   style={[styles.infoHeader, dynamicStyles.infoHeader]}
+                                   tag="headerInfo" ref="infoHeader">
+
                         <Box centralize fitAbsolute>
                             <Text>Info Header</Text>
-                        </Box> 
+                        </Box>
+
                     </TouchableView>
-                    
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    <Text>Info Content</Text>
-                    
+
+                    <ListOfSites/>
+
                 </TouchableView>
             </View>
         )

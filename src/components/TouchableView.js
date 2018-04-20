@@ -70,12 +70,15 @@ class TouchableView extends React.Component {
             onTouch(this.touchState)
         }
 
-        if(onOneTouch && isLastOne && this.touches.length <= 1) {
+        if(onOneTouch && isLastOne && this.touchState.speedY === 0) {
             onOneTouch()
         }
     }
 
     clearTouches = () => {
+        const {onTouchEnd} = this.props
+        if(onTouchEnd)
+            onTouchEnd(this.touchState)
         this.touches = []
     }
 
@@ -117,7 +120,7 @@ class TouchableView extends React.Component {
 
     render() {
 
-        const { onTouch, tag, ...externalProps } = this.props
+        const { onTouch, onTouchEnd, tag, ...externalProps } = this.props
 
         return (
             <View 
@@ -140,6 +143,7 @@ class TouchableView extends React.Component {
 TouchableView.propTypes = {
     tag: PropTypes.string,
     onTouch: PropTypes.func,
+    onTouchEnd: PropTypes.func,
     onOneTouch: PropTypes.func,
 }
 

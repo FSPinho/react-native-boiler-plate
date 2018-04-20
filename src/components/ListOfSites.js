@@ -36,7 +36,18 @@ class ListOfSites extends React.Component {
             ...sites,
             ...sites,
             ...sites,
-            ...sites
+            ...sites,
+            ...sites,
+            ...sites,
+            ...sites,
+            ...sites,
+            ...sites,
+            ...sites,
+            ...sites,
+            ...sites,
+            ...sites,
+            ...sites,
+            ...sites,
         ]))
 
     render() {
